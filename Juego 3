@@ -69,3 +69,5 @@ else:
     guardar_historial(nombre, "Ahorcado", "Perdió")
 
 guardar_estadistica("Ahorcado")
+
+input("\nPresiona Enter para volver al menú principal...")
