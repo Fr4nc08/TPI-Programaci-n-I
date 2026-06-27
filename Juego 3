@@ -1,0 +1,71 @@
+import random
+
+def jugar_ahorcado():
+    # Lista de palabras relacionadas con programación
+    palabras = ["python", "codigo", "juego", "programa", "variable", "bucle", "funcion"]
+    palabra_secreta = random.choice(palabras)
+    
+    # Inicialización de variables
+    adivinado = ["_"] * len(palabra_secreta)
+    intentos = 6
+    letras_usadas = []
+    puntaje = 0
+    
+    print("=== BIENVENIDO AL AHORCADO ===")
+    print("Las palabras están relacionadas con la programación.")
+    nombre = input("Ingresa tu nombre jugador: ")
+    print(f"\n¡Hola {nombre}! Tienes {intentos} intentos para adivinar la palabra.\n")
+
+    # Bucle principal del juego
+    while intentos > 0 and "_" in adivinado:
+        print("Palabra actual:", " ".join(adivinado))
+        print(f"Intentos restantes: {intentos} | Letras usadas: {', '.join(letras_usadas)}")
+        
+        letra = input("Adivina una letra: ").lower()
+
+        # Validaciones de entrada
+        if len(letra) != 1 or not letra.isalpha():
+            print(" Por favor, ingresa una sola letra válida.")
+            continue
+        if letra in letras_usadas:
+            print(f" Ya intentaste la letra '{letra}'. Prueba con otra.")
+            continue
+        
+        letras_usadas.append(letra)
+
+        # Lógica de comprobación
+        if letra in palabra_secreta:
+            print(f"¡Bien hecho! La letra '{letra}' está en la palabra.")
+            for i, char in enumerate(palabra_secreta):
+                if char == letra:
+                    adivinado[i] = letra
+        else:
+            intentos -= 1
+            print(f"Incorrecto. La letra '{letra}' no está. Te quedan {intentos} intentos.")
+
+    # Resultado final (fuera del bucle)
+    print("\n" + "="*30)
+    if "_" not in adivinado:
+        print(f"🏆 ¡GANASTE {nombre}! La palabra era: {palabra_secreta}")
+        puntaje = 1
+        print(f"Has ganado 1 punto.")
+    else:
+        print(f"   PERDISTE {nombre}. La palabra era: {palabra_secreta}")
+        puntaje = 0
+
+    print(f"Tu puntaje final es: {puntaje}")
+
+# Ejecutar el juego
+if __name__ == "__main__":
+    jugar_ahorcado()
+
+guardar_puntaje(nombre, "Ahorcado", puntaje)
+
+guardar_ranking(nombre, puntaje)
+
+if puntaje == 1:
+    guardar_historial(nombre, "Ahorcado", "Ganó")
+else:
+    guardar_historial(nombre, "Ahorcado", "Perdió")
+
+guardar_estadistica("Ahorcado")
