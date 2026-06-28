@@ -9,7 +9,7 @@ def adivina_la_suma():
   print("El puntaje que obtendras depende de la cantidad de intentos que utilices.")
   """
   Mostramos el texto de bienvenida, explicamos las reglas del juego 
-
+  
   """
 
 def guardar_puntajes(nombre, puntaje):
